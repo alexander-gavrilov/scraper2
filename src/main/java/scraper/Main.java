@@ -85,10 +85,15 @@ public class Main {
 //        Scraper scraper2 = new Scraper();
 //        scraper2.setDocument(doc);
 
-        response = connection.method(Connection.Method.POST).execute();
 
-        String body = response.body();
-        System.out.println(response.contentType()+ "    Body = "+body);
+
+        String body="";
+
+        for(int i=0;i<10 && body.isEmpty();i++){
+            response = connection.method(Connection.Method.POST).execute();
+            body = response.body();
+            System.out.println(response.contentType()+ "    i="+i+"    Body = "+body);
+        }
 
 //        element = doc.getElementById("_impreseiscritte_WAR_serviziportalealbo100SNAPSHOTesercizioalbo_comuniList");
 //        element.getElementsByTag("option").forEach((option) -> {
