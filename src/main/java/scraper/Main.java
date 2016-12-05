@@ -95,6 +95,11 @@ public class Main {
             System.out.println(response.contentType()+ "    i="+i+"    Body = "+body);
         }
 
+        if(!body.isEmpty()){
+            JsonElement jsonElement = JsonParser().parse(response).getAsJsonObject()
+        }
+
+
 //        element = doc.getElementById("_impreseiscritte_WAR_serviziportalealbo100SNAPSHOTesercizioalbo_comuniList");
 //        element.getElementsByTag("option").forEach((option) -> {
 //            System.out.println("option = " + option.val() + "\t" + option.text());
