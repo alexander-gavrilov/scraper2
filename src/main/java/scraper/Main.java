@@ -1,13 +1,20 @@
 package scraper;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
+import com.google.gson.reflect.TypeToken;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
+
+
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
+import java.util.Map;
 
 /**
  * Created by alexa on 30.11.2016.
@@ -95,8 +102,12 @@ public class Main {
             System.out.println(response.contentType()+ "    i="+i+"    Body = "+body);
         }
 
-        if(!body.isEmpty()){
-            JsonElement jsonElement = JsonParser().parse(response).getAsJsonObject()
+
+
+       if(!body.isEmpty()){
+            JsonElement jsonElement = new JsonParser().parse(body);
+           Type type = new TypeToken<Map<String, Integer>>(){}.getType();
+           Map<String, Integer> read = jsonElement.fromJson(jsonElement, type);
         }
 
 
