@@ -1,5 +1,7 @@
 package scraper;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
@@ -14,6 +16,8 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -105,10 +109,18 @@ public class Main {
 
 
        if(!body.isEmpty()){
-            JsonElement jsonElement = new JsonParser().parse(body);
-           Type type = new TypeToken<Map<String, Integer>>(){}.getType();
-           Map<String, Integer> read = jsonElement.fromJson(jsonElement, type);
+           JsonElement jsonElement = new JsonParser().parse(body);
+           GsonBuilder builder = new GsonBuilder();
+           builder.registerTypeAdapter(Zone.class,new ZoneConverter());
+           Type type = new TypeToken<ArrayList<Zone>>(){}.getType();
+           Gson gson = builder.create();
+
+           List<Zone> zones = gson.fromJson(jsonElement, type);
+           zones.forEach(zone -> {
+               System.out.println("Name = " + zone.getName()+ "     Code = "+zone.getCode());
+           });
         }
+
 
 
 //        element = doc.getElementById("_impreseiscritte_WAR_serviziportalealbo100SNAPSHOTesercizioalbo_comuniList");
