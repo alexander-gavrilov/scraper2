@@ -30,10 +30,13 @@ public class Main {
         String province = "ANCONA";
 
 
-        String url = "https://www.alboautotrasporto.it/web/portale-albo/imprese-iscritte";
-        Scraper scraper = new Scraper(url);
 
-        Connection conn1 = scraper.getConnection()
+        String url = "https://www.alboautotrasporto.it/web/portale-albo/imprese-iscritte";
+        //Scraper scraper = new Scraper(url);
+
+        Connection conn1 = Jsoup.connect(url)
+                .validateTLSCertificates(false)
+                .proxy("192.168.15.240",3128)
                 .method(Connection.Method.GET)
                 .header("Connection","keep-alive")
                 .header("Host","www.alboautotrasporto.it")
@@ -61,7 +64,7 @@ public class Main {
         System.out.println("Chosen option is " + pe.text());
 
         // Scraper scraper1 = new Scraper("https://www.alboautotrasporto.it/web/portale-albo/imprese-iscritte?p_p_id=impreseiscritte_WAR_serviziportalealbo100SNAPSHOTesercizioalbo&p_p_lifecycle=2&p_p_state=normal&p_p_mode=view&p_p_cacheability=cacheLevelPage&p_p_col_id=column-2&p_p_col_count=1&_impreseiscritte_WAR_serviziportalealbo100SNAPSHOTesercizioalbo_action=getComuniByProvincia");
-        scraper.takeSSLValidationOff();
+        //scraper.takeSSLValidationOff();
 
         Connection connection =
                 Jsoup.connect("https://www.alboautotrasporto.it/web/portale-albo/imprese-iscritte?p_p_id=impreseiscritte_WAR_serviziportalealbo100SNAPSHOTesercizioalbo&p_p_lifecycle=2&p_p_state=normal&p_p_mode=view&p_p_cacheability=cacheLevelPage&p_p_col_id=column-2&p_p_col_count=1&_impreseiscritte_WAR_serviziportalealbo100SNAPSHOTesercizioalbo_action=getComuniByProvincia")
@@ -73,6 +76,9 @@ public class Main {
 //                .data("p_p_col_id","column-2")
 //                .data("p_p_col_count","1")
 //                .data("_impreseiscritte_WAR_serviziportalealbo100SNAPSHOTesercizioalbo_action","getComuniByProvincia")
+
+                .validateTLSCertificates(false)
+                .proxy("192.168.15.240",3128)
                         .data("_impreseiscritte_WAR_serviziportalealbo100SNAPSHOTesercizioalbo_data", pe.val())
                         .cookies(response.cookies())
                         .header("Connection","keep-alive")
